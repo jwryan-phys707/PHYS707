@@ -6,14 +6,14 @@ Created on Thu Sep  5 11:46:20 2019
 """
 from numpy import arccos, random, sqrt, pi
 
-l = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] #Side lengths of box in d dimensions.
+l = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 40] #Side lengths of box in d dimensions.
 d = len(l) #Number of dimensions.
+L = 10**5 #Number of trials.
 
 ac = []
 ob = []
 theta = []
 
-L = 10**5 #Number of trials.
 for p in range(0, L, 1):
     q = []
     for i in range(0, 3, 1):
