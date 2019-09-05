@@ -5,49 +5,40 @@ Created on Tue Sep  3 16:01:59 2019
 @author: jwryan
 """
 
-from random import shuffle, randint
-from numpy import array, arange, loadtxt, log10
+from random import shuffle
+from numpy import arange
 from itertools import groupby
 from operator import itemgetter
-from numpy import savetxt
-import matplotlib.pyplot as plt
-#import sys
 
 a1 = [[1, 's'], [2, 'd'], [3, 'h'], [4, 'c'], [6, 's']] #My hand.
-#a1 = [[6, 's'], [7, 's'], [8, 's'], [9, 's'], [10, 's']] #My hand.
-
-#n = sys.argv[1]
-#syscount = 0
-
-#for ss in range(0, 10**4, 1):
- #   syscount += 1
-  #  if str(syscount) == n:
-   #     break
 
 b1 = ['c', 's', 'h', 'd']
 b2 = arange(1, 14, 1)
 a = []
 
-for x in b2:
+for x in b2: #This loop creates the deck.
     for y in range(0, 4, 1):
         a.append([(x), b1[y]])  
 
-for z in range(0, 5, 1):
+for z in range(0, 5, 1): #This loop removes my hand from the deck.
     a.remove(a1[z])
     
 gcount = 0
 Mywin = 0
 Oppwin = 0
 gnumber = 10**5
+
 for games in range(0, gnumber, 1):
     gcount += 1
     print(gcount/gnumber) #Progress bar
     Myscore = [0]
     Oppscore = [0]
     
-    shuffle(a)
+    shuffle(a) #Shuffles deck.
     
     a2 = [a[0], a[1], a[2], a[3], a[4]]
+    #^This line chooses the first five cards of the shuffled deck;
+    #this is my opponent's hand
     
     a11 = []
     a12 = []
@@ -55,15 +46,12 @@ for games in range(0, gnumber, 1):
     a22 = []
     
     for z in range(0, 5, 1):
-        a11.append(a1[z][0]) #Number
-        a12.append(a1[z][1]) #Suit
-        a21.append(a2[z][0]) #Number
-        a22.append(a2[z][1]) #Suit
+        a11.append(a1[z][0]) #List of values of the cards in my hand.
+        a12.append(a1[z][1]) #List of suits of the cards in my hand.
+        a21.append(a2[z][0]) #List of values of cards in my opponent's hand.
+        a22.append(a2[z][1]) #List of suits of cards in my opponent's hand.
     
-    
-    #a11 = [2, 2, 3, 7, 5]
-    #a12 = ['s', 's', 'd', 'c', 'h']
-    #a22 = ['c', 'c', 'c', 'c', 'c']
+    #The following lines look for winning card combinations in both hands.
     ##HIGH CARD CRITERIA
     Value = 1
     if max(a11) > max(a21):
@@ -72,7 +60,6 @@ for games in range(0, gnumber, 1):
     if max(a21) > max(a11):
         Oppscore.append(Value)
         Myscore.append(0)
-    ##
     
     ##ONE PAIR CRITERIA
     Value = 2
@@ -175,46 +162,14 @@ for games in range(0, gnumber, 1):
     if ((all(elem in a21 for elem in RF)) and all(elem == a22[0] for elem in a22)):
         Oppscore.append(Value)
         Myscore.append(0)
-    ##
     
     if max(Myscore) > max(Oppscore):
         Mywin += 1
     if max(Oppscore) > max(Myscore):
         Oppwin += 1
-    
-    #print(a11, a21)
-    #print('>>', Myscore, Oppscore)
               
 print('P(W) = ', 100*Mywin/gcount)
 print('P(L) = ', 100*Oppwin/gcount)
 print('P(D) = ', 100*(gcount-(Mywin+Oppwin))/gcount)
-#savetxt('temp_Poker_mywins_1.dat', [Mywin])
-#savetxt('temp_Poker_oppwins_1.dat', [Oppwin])
-#savetxt('temp_Poker_draws_1.dat', [gcount-(Mywin+Oppwin)])
 
-"""
-N = range(1, 10001, 1)
-
-W = loadtxt('Poker_mywins.dat', unpack=True)
-L = loadtxt('Poker_oppwins.dat', unpack=True)
-D = loadtxt('Poker_draws.dat', unpack=True)
-
-print(sum(W)/len(W), 'Average # of wins.')
-print(sum(L)/len(L), 'Average # of losses.')
-print(sum(D)/len(D), 'Average # of draws.')
-      
-print((sum(W)/len(W))/(10**5), 'P(W)')
-print((sum(L)/len(L))/(10**5), 'P(L)')
-print((sum(D)/len(D))/(10**5), 'P(D)')
-
-plt.plot(N, W)
-plt.plot(N, L)
-plt.plot(N, D)
-plt.ylim(00, 10**5)
-plt.show()
-
-print(sum(W)/(10**9), 'Full P(W)')
-print(sum(L)/(10**9), 'Full P(L)')
-print(sum(D)/(10**9), 'Full P(D)')
-"""
 
