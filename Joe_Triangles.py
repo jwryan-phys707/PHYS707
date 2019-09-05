@@ -38,8 +38,8 @@ for p in range(0, L, 1):
     a = sqrt(sum(a2))
     b = sqrt(sum(b2))
     c = sqrt(sum(c2))
-    #Lines 26-40 implement the generalized form of the Pythagorean
-    #theorem: r_ij = [(q_i1 - q_j1)^2 + ... + (q_id - q_jd)^2]^(1/2)
+    #Lines 26-40 implement the generalized form of the Pythagorean theorem
+    #in d dimensions: r_ij = [(q_i1 - q_j1)^2 + ... + (q_id - q_jd)^2]^(1/2)
     #for each side length a, b, c. The second index on q labels the
     #coordinate (e.g. x = 1, y = 2, z = 3 in 3 dimensions);
     #the indices i and j label the points themselves.
